@@ -1,0 +1,75 @@
+{
+  "name": "@dappface/ethereum-provider",
+  "version": "0.0.1",
+  "description": "EIP-1193 compatible Ethereum provider",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "connection/node/index.d.ts",
+    "connection/node/react-native-websocket.d.ts",
+    "connection/node/type.d.ts",
+    "connection/node/websocket.d.ts",
+    "connection/wallet/backgrund.worker.d.ts",
+    "connection/wallet/index.d.ts",
+    "connection/wallet/react-native.d.ts",
+    "connection/wallet/worker.d.ts",
+    "connection/index.d.ts",
+    "connection/type.d.ts",
+    "index.d.ts",
+    "index.js",
+    "json-rpc-manager.d.ts",
+    "promise-managerr.d.ts",
+    "provider.d.ts"
+  ],
+  "author": "Junichi Sugiura <junichi.sugiura@dappface.com> (https://github.com/LukeSugiura)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dappface/ethereum-provider.git"
+  },
+  "homepage": "https://github.com/dappface/ethereum-provider#readme",
+  "bugs": "https://github.com/dappface/ethereum-provider/issues",
+  "contributors": [
+    {
+      "name": "Junichi Sugiura",
+      "email": "junichi.sugiura@dappface.com",
+      "url": "https://github.com/LukeSugiura"
+    }
+  ],
+  "scripts": {
+    "build": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack",
+    "lint": "eslint . --ext .js --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "tsc": "tsc",
+    "watch": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.2",
+    "@types/uuid": "^3.4.4",
+    "@types/webpack": "^4.4.35",
+    "@types/webpack-dev-server": "^3.1.7",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
+    "jest-websocket-mock": "^1.5.0",
+    "mock-socket": "^8.0.5",
+    "prettier": "^1.17.1",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
+    "tsconfig-paths": "^3.8.0",
+    "typescript": "^3.4.5",
+    "uuid": "^3.3.2",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.4",
+    "worker-loader": "^2.0.0"
+  },
+  "dependencies": {}
+}

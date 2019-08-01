@@ -1,0 +1,111 @@
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.0.5
+
+executors:
+  default:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.16.0
+
+commands:
+  restore_npm:
+    steps:
+      - restore_cache:
+          key: npm-{{ checksum "package-lock.json" }}
+  save_npm:
+    steps:
+      - save_cache:
+          key: npm-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+
+jobs:
+  setup:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_npm
+  lint:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Lint Check
+          command: npm run lint
+  test:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Test
+          command: npm run test -- --coverage
+      - codecov/upload:
+          file: ./coverage/lcov.info
+  build:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Build
+          command: npm run build
+  deploy:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Prepare npm token
+          command: npm set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+      - run:
+          name: Publish to npm
+          command: npm publish .
+
+workflows:
+  setup_and_deploy:
+    jobs:
+      - setup:
+          filters:
+            tags:
+              only: /^v.*/
+      - lint:
+          requires:
+            - setup
+          filters:
+            tags:
+              only: /^v.*/
+      - test:
+          requires:
+            - setup
+          filters:
+            tags:
+              only: /^v.*/
+      - build:
+          requires:
+            - lint
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          context: npm
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

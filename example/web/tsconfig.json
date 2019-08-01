@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "jsx": "react",
+    "lib": ["es6", "dom"],
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "outDir": "./dist",
+    "paths": {
+      "*" : ["./node_modules/@types/*", "*"]
+    },
+    "plugins": [
+      {"name": "typescript-tslint-plugin"}
+    ],
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "typeRoots": [
+    "node_modules/@types",
+    "src/@types"
+  ],
+}
