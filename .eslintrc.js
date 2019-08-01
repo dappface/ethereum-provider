@@ -11,6 +11,7 @@ module.exports =  {
     sourceType:  'module'
   },
   rules: {
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     // details: https://github.com/typescript-eslint/typescript-eslint/issues/201
