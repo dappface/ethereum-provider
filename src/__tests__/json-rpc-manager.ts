@@ -3,9 +3,7 @@ import { IConnection, INodeConnection, JsonRpcMethod } from '..'
 import { JsonRpcManager } from '../json-rpc-manager'
 
 let uuidCount = 0
-jest.mock('uuid/v4', (): { default: () => string } => ({
-  default: (): string => (uuidCount++).toString()
-}))
+jest.mock('uuid/v4', () => (): string => (uuidCount++).toString())
 
 describe('JsonRpcManager', (): void => {
   afterEach((): void => {

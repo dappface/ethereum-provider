@@ -2,9 +2,7 @@ import WS from 'jest-websocket-mock'
 import { EthereumProvider, JsonRpcMethod } from '..'
 
 let uuidCount = 0
-jest.mock('uuid/v4', (): { default: () => string } => ({
-  default: (): string => (uuidCount++).toString()
-}))
+jest.mock('uuid/v4', () => (): string => (uuidCount++).toString())
 
 describe('EthereumProvider', (): void => {
   afterEach((): void => {
