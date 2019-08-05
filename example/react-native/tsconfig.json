@@ -1,14 +1,25 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
     "lib": ["es6", "dom"],
     "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noEmit": true,
+    "outDir": "./dist",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true,
+    "strictNullChecks": true,
     "target": "esnext"
   },
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "typeRoots": ["node_modules/@types", "src/@types"],
+  "exclude": ["node_modules", "../web"]
 }

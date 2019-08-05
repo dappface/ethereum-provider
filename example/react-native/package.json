@@ -10,6 +10,7 @@
     "start": "react-native start",
     "start:fresh": "npm run reinstall && npm start",
     "test": "jest",
+    "typecheck": "tsc",
     "watch:injectable": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --watch"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "@types/react-test-renderer": "^16.8.2",
     "@types/styled-components": "^4.1.18",
     "babel-jest": "^24.1.0",
+    "babel-loader": "^8.0.6",
     "cross-env": "^5.2.0",
     "dotenv-webpack": "^1.7.0",
     "jest": "^24.1.0",

@@ -1,4 +1,4 @@
-import { EthereumProvider } from 'dappface-provider'
+import { EthereumProvider } from '@dappface/ethereum-provider'
 import Web3 from 'web3'
 
 export { App } from './app'
