@@ -1,7 +1,6 @@
 import Dotenv from 'dotenv-webpack'
 import { JsonifyWebpackPlugin } from 'jsonify-webpack-plugin'
 import path from 'path'
-import pkg from './package.json'
 import webpack from 'webpack'
 
 const config: webpack.Configuration = {
