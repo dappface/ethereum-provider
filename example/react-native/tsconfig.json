@@ -4,12 +4,11 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["es6"],
+    "lib": ["es6", "dom"],
     "moduleResolution": "node",
-    "noEmit": true,
     "resolveJsonModule": true,
     "strict": true,
-    "target": "esnext",
+    "target": "esnext"
   },
   "exclude": ["node_modules"]
 }
