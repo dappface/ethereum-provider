@@ -10,18 +10,10 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "outDir": "./dist",
-    "plugins": [
-      {"name": "typescript-tslint-plugin"}
-    ],
     "sourceMap": true,
     "strict": true,
     "target": "es6"
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "typeRoots": [
-    "node_modules/@types",
-    "src/@types"
-  ],
+  "include": ["src/**/*.ts"],
+  "typeRoots": ["node_modules/@types", "src/@types"]
 }
