@@ -38,7 +38,7 @@
   ],
   "scripts": {
     "build": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack",
-    "lint": "eslint . --ext .js --ext .ts",
+    "lint": "eslint . --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:watch": "jest --watch",
