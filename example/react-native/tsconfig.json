@@ -20,6 +20,5 @@
     "target": "esnext"
   },
   "include": ["src"],
-  "typeRoots": ["node_modules/@types", "src/@types"],
-  "exclude": ["node_modules", "../web"]
+  "typeRoots": ["node_modules/@types", "src/@types"]
 }

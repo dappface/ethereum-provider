@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "lint": "tslint --project .",
     "lint:fix": "tslint --fix --project .",
-    "tsc": "tsc",
+    "typecheck": "tsc",
     "webpack-dev-server": "webpack-dev-server",
     "watch": "webpack --watch"
   },
