@@ -1,8 +1,9 @@
-const Dotenv = require('dotenv-webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
+import Dotenv from 'dotenv-webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import path from 'path'
+import webpack from 'webpack'
 
-module.exports = {
+const config: webpack.Configuration = {
   mode: 'development',
   entry: './src/index.tsx',
   output: {
@@ -29,3 +30,5 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.json']
   }
 }
+
+export default config
