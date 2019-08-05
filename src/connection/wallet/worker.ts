@@ -3,7 +3,6 @@ import { IConnection, ITestWallet } from '../type'
 import Worker from './background.worker.ts'
 
 declare global {
-  // tslint:disable-next-line:interface-name
   interface Window {
     ethereum: {
       postMessage: (message: string) => void
