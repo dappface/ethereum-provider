@@ -1,4 +1,7 @@
-import { EthereumProvider, WorkerWalletConnection } from 'dappface-provider'
+import {
+  EthereumProvider,
+  WorkerWalletConnection
+} from '@dappface/ethereum-provider'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
