@@ -19,7 +19,12 @@ commands:
       - save_cache:
           key: npm-{{ checksum "package-lock.json" }}
           paths:
-            - ./node_modules
+            - ~/repo/node_modules
+  build:
+    steps:
+      - run:
+          name: Build
+          command: npm run build
 
 jobs:
   setup:
@@ -30,7 +35,7 @@ jobs:
       - restore_npm
       - run:
           name: Install Dependencies
-          command: npm install
+          command: npm install --no-save
       - save_npm
   lint:
     executor:
@@ -58,15 +63,14 @@ jobs:
     steps:
       - checkout
       - restore_npm
-      - run:
-          name: Build
-          command: npm run build
-  deploy:
+      - build
+  build_and_deploy:
     executor:
       name: default
     steps:
       - checkout
       - restore_npm
+      - build
       - run:
           name: Prepare npm token
           command: npm set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
@@ -97,13 +101,11 @@ workflows:
           requires:
             - lint
             - test
-          filters:
-            tags:
-              only: /^v.*/
-      - deploy:
+      - build_and_deploy:
           context: npm
           requires:
-            - build
+            - lint
+            - test
           filters:
             tags:
               only: /^v.*/
