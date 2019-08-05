@@ -32,6 +32,7 @@
     "@types/react-native-dotenv": "^0.2.0",
     "@types/react-test-renderer": "^16.8.2",
     "@types/styled-components": "^4.1.18",
+    "@types/webpack": "^4.32.1",
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.6",
     "cross-env": "^5.2.0",

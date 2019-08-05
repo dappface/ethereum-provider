@@ -1,7 +1,8 @@
 import path from 'path'
 import pkg from './package.json'
+import webpack from 'webpack'
 
-module.exports = {
+const config: webpack.Configuration = {
   mode: 'development',
   entry: './src/index.ts',
   output: {
@@ -30,3 +31,5 @@ module.exports = {
     extensions: ['.ts', '.js', '.json']
   }
 }
+
+export default config
