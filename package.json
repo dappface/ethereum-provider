@@ -38,10 +38,14 @@
   ],
   "scripts": {
     "build": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack",
+    "install:all": "bin/install-all.sh",
     "lint": "eslint . --ext .ts",
     "lint:fix": "npm run lint -- --fix",
+    "lint:all": "bin/lint-all.sh",
     "test": "jest",
     "test:watch": "jest --watch",
+    "typecheck": "tsc --noEmit",
+    "typecheck:all": "bin/typecheck-all.sh",
     "watch": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --watch"
   },
   "devDependencies": {
