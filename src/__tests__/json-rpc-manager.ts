@@ -14,7 +14,9 @@ describe('JsonRpcManager', (): void => {
   describe('send', (): void => {
     it('sends message to node', async (): Promise<void> => {
       const server = new WS('ws://localhost:1234')
-      const jsonRpc = new JsonRpcManager({ url: 'ws://localhost:1234' })
+      const jsonRpc = new JsonRpcManager({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       await server.connected
 
@@ -31,7 +33,9 @@ describe('JsonRpcManager', (): void => {
 
     it('resolve message from node', async (): Promise<void> => {
       const server = new WS('ws://localhost:1234')
-      const jsonRpc = new JsonRpcManager({ url: 'ws://localhost:1234' })
+      const jsonRpc = new JsonRpcManager({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       await server.connected
 
@@ -52,7 +56,9 @@ describe('JsonRpcManager', (): void => {
 
     it('throws error when method is not a string', async (): Promise<void> => {
       const server = new WS('ws://localhost:1234')
-      const jsonRpc = new JsonRpcManager({ url: 'ws://localhost:1234' })
+      const jsonRpc = new JsonRpcManager({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       await server.connected
 
@@ -66,7 +72,9 @@ describe('JsonRpcManager', (): void => {
 
     it('throws error when params is not an array', async (): Promise<void> => {
       const server = new WS('ws://localhost:1234')
-      const jsonRpc = new JsonRpcManager({ url: 'ws://localhost:1234' })
+      const jsonRpc = new JsonRpcManager({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       await server.connected
 
@@ -84,7 +92,7 @@ describe('JsonRpcManager', (): void => {
         send: jest.fn()
       }
       const jsonRpc = new JsonRpcManager({
-        url: 'ws://localhost:1234',
+        nodeConnection: 'ws://localhost:1234',
         walletConnection
       })
 
@@ -199,7 +207,7 @@ describe('JsonRpcManager', (): void => {
         send: jest.fn()
       }
       const jsonRpc = new JsonRpcManager({
-        url: 'ws://localhost:1234',
+        nodeConnection: 'ws://localhost:1234',
         walletConnection
       })
 
@@ -222,7 +230,7 @@ describe('JsonRpcManager', (): void => {
     it('emits notification if subscription message is provided', (done): void => {
       new WS('ws://localhost:1234')
       const jsonRpc = new JsonRpcManager({
-        url: 'ws://localhost:1234'
+        nodeConnection: 'ws://localhost:1234'
       })
 
       const message = JSON.stringify({
@@ -242,7 +250,7 @@ describe('JsonRpcManager', (): void => {
     it('rejects when message has an error property', (): void => {
       new WS('ws://localhost:1234')
       const jsonRpc = new JsonRpcManager({
-        url: 'ws://localhost:1234'
+        nodeConnection: 'ws://localhost:1234'
       })
 
       expect.assertions(1)
@@ -261,7 +269,7 @@ describe('JsonRpcManager', (): void => {
     it('throws error when a message cannot be parsed', (): void => {
       new WS('ws://localhost:1234')
       const jsonRpc = new JsonRpcManager({
-        url: 'ws://localhost:1234'
+        nodeConnection: 'ws://localhost:1234'
       })
 
       expect((): void => jsonRpc.onMessage('')).toThrow(
@@ -272,7 +280,7 @@ describe('JsonRpcManager', (): void => {
     it('thorws error when a message does not contain jsonrpc property', (): void => {
       new WS('ws://localhost:1234')
       const jsonRpc = new JsonRpcManager({
-        url: 'ws://localhost:1234'
+        nodeConnection: 'ws://localhost:1234'
       })
 
       expect((): void => jsonRpc.onMessage('{}')).toThrow(
@@ -286,7 +294,7 @@ describe('JsonRpcManager', (): void => {
       it('emits accountsChanged on df_accountsChanged', (done): void => {
         new WS('ws://localhost:1234')
         const jsonRpc = new JsonRpcManager({
-          url: 'ws://localhost:1234'
+          nodeConnection: 'ws://localhost:1234'
         })
 
         const message = JSON.stringify({
@@ -307,7 +315,7 @@ describe('JsonRpcManager', (): void => {
       it('emits close on df_socketClosed', (done): void => {
         new WS('ws://localhost:1234')
         const jsonRpc = new JsonRpcManager({
-          url: 'ws://localhost:1234'
+          nodeConnection: 'ws://localhost:1234'
         })
 
         const message = JSON.stringify({
@@ -332,7 +340,7 @@ describe('JsonRpcManager', (): void => {
       it('emits connect on df_socketConnected', (done): void => {
         new WS('ws://localhost:1234')
         const jsonRpc = new JsonRpcManager({
-          url: 'ws://localhost:1234'
+          nodeConnection: 'ws://localhost:1234'
         })
 
         const message = JSON.stringify({
@@ -351,7 +359,7 @@ describe('JsonRpcManager', (): void => {
       it('emits notification on df_socketMessage', (done): void => {
         new WS('ws://localhost:1234')
         const jsonRpc = new JsonRpcManager({
-          url: 'ws://localhost:1234'
+          nodeConnection: 'ws://localhost:1234'
         })
 
         const message = JSON.stringify({
@@ -378,7 +386,6 @@ describe('JsonRpcManager', (): void => {
             send: jest.fn()
           }
           const jsonRpc = new JsonRpcManager({
-            url: 'ws://localhost:1234',
             nodeConnection
           })
 
@@ -401,7 +408,7 @@ describe('JsonRpcManager', (): void => {
         > => {
           new WS('ws://localhost:1234')
           const jsonRpc = new JsonRpcManager({
-            url: 'ws://localhost:1234'
+            nodeConnection: 'ws://localhost:1234'
           })
 
           const message = JSON.stringify({
@@ -419,7 +426,7 @@ describe('JsonRpcManager', (): void => {
         > => {
           new WS('ws://localhost:1234')
           const jsonRpc = new JsonRpcManager({
-            url: 'ws://localhost:1234'
+            nodeConnection: 'ws://localhost:1234'
           })
 
           const message = JSON.stringify({
@@ -436,7 +443,7 @@ describe('JsonRpcManager', (): void => {
         it('throws error when remove node url is not a websocket url', (): void => {
           new WS('ws://localhost:1234')
           const jsonRpc = new JsonRpcManager({
-            url: 'ws://localhost:1234'
+            nodeConnection: 'ws://localhost:1234'
           })
 
           const message = JSON.stringify({

@@ -21,32 +21,8 @@ export interface IJsonRpcManager {
 }
 
 interface IJsonRpcManagerParams {
-  nodeConnection?: INodeConnection
-  url: string
+  nodeConnection: INodeConnection | string
   walletConnection?: IConnection
-}
-
-export enum JsonRpcMethod {
-  EthAccounts = 'eth_accounts',
-  EthCoinbase = 'eth_coinbase',
-  EthSendTransaction = 'eth_sendTransaction',
-  EthSign = 'eth_sign',
-  EthSignTypedData = 'eth_signTypedData',
-  EthSignTypedDataV0 = 'eth_signTypedData_v0',
-  EthSignTypedDataV3 = 'eth_signTypedData_v3',
-  PersonalSign = 'personal_sign',
-  PersonalEcRecover = 'personal_ecRecover',
-
-  EthChainId = 'eth_chainId',
-  NetVersion = 'net_version',
-  EthSubscription = 'eth_subscription',
-
-  // dappface specific
-  DFAccountsChanged = 'df_accountsChanged',
-  DFChangeConnection = 'df_changeConnection',
-  DFSocketClosed = 'df_socketClosed',
-  DFSocketConnected = 'df_socketConnected',
-  DFSocketMessage = 'df_socketMessage'
 }
 
 export class JsonRpcManager extends EventEmitter implements IJsonRpcManager {
@@ -149,13 +125,12 @@ export class JsonRpcManager extends EventEmitter implements IJsonRpcManager {
   private promiseManager: IPromiseManager = new PromiseManager()
   private walletConnection?: IConnection
 
-  constructor({
-    nodeConnection,
-    url,
-    walletConnection
-  }: IJsonRpcManagerParams) {
+  constructor({ nodeConnection, walletConnection }: IJsonRpcManagerParams) {
     super()
-    this.nodeConnection = nodeConnection || new WebSocketNodeConnection(url)
+    this.nodeConnection =
+      typeof nodeConnection === 'string'
+        ? new WebSocketNodeConnection(nodeConnection)
+        : nodeConnection
     this.walletConnection = walletConnection
 
     this.addAllListeners()
@@ -260,4 +235,27 @@ interface IJsonRpcMessage {
   jsonrpc: '2.0'
   method: string
   params: string[]
+}
+
+export enum JsonRpcMethod {
+  EthAccounts = 'eth_accounts',
+  EthCoinbase = 'eth_coinbase',
+  EthSendTransaction = 'eth_sendTransaction',
+  EthSign = 'eth_sign',
+  EthSignTypedData = 'eth_signTypedData',
+  EthSignTypedDataV0 = 'eth_signTypedData_v0',
+  EthSignTypedDataV3 = 'eth_signTypedData_v3',
+  PersonalSign = 'personal_sign',
+  PersonalEcRecover = 'personal_ecRecover',
+
+  EthChainId = 'eth_chainId',
+  NetVersion = 'net_version',
+  EthSubscription = 'eth_subscription',
+
+  // dappface specific
+  DFAccountsChanged = 'df_accountsChanged',
+  DFChangeConnection = 'df_changeConnection',
+  DFSocketClosed = 'df_socketClosed',
+  DFSocketConnected = 'df_socketConnected',
+  DFSocketMessage = 'df_socketMessage'
 }

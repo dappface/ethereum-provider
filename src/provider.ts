@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { IConnection } from './connection'
+import { IConnection, INodeConnection } from './connection'
 import {
   IJsonRpcManager,
   JsonRpcManager,
@@ -44,7 +44,7 @@ export interface IDappFaceEthereumProvider extends IEthereumProvider {
 }
 
 interface IEthereumProviderParams {
-  url: string
+  nodeConnection: INodeConnection | string
   walletConnection?: IConnection
 }
 
@@ -55,9 +55,12 @@ export class EthereumProvider extends EventEmitter
   private networkId: string | undefined
   private chainId: string | undefined
 
-  constructor({ url, walletConnection }: IEthereumProviderParams) {
+  constructor({ nodeConnection, walletConnection }: IEthereumProviderParams) {
     super()
-    this.jsonRpcManager = new JsonRpcManager({ url, walletConnection })
+    this.jsonRpcManager = new JsonRpcManager({
+      nodeConnection,
+      walletConnection
+    })
 
     this.addAllListeners()
   }
@@ -80,7 +83,7 @@ export class EthereumProvider extends EventEmitter
   //   console.log('TODO: enable')
   // }
 
-  private async updateChainId(): Promise<void> {
+  async updateChainId(): Promise<void> {
     const newChainId = await this.send(JsonRpcMethod.EthChainId)
     if (newChainId instanceof Error || this.chainId === newChainId) {
       return

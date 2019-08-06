@@ -1,5 +1,9 @@
 import WS from 'jest-websocket-mock'
-import { EthereumProvider, JsonRpcMethod } from '..'
+import {
+  EthereumProvider,
+  JsonRpcMethod,
+  ReactNativeWebSocketNodeConnection
+} from '..'
 
 let uuidCount = 0
 jest.mock('uuid/v4', () => (): string => (uuidCount++).toString())
@@ -11,15 +15,27 @@ describe('EthereumProvider', (): void => {
   })
 
   it('has dappface flag', (): void => {
-    const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+    const provider = new EthereumProvider({
+      nodeConnection: 'ws://localhost:1234'
+    })
     expect(provider.isDappFace).toBe(true)
   })
 
-  describe('chainChangedl', (): void => {
+  it('inits with React Native websocket connection', (): void => {
+    const nodeConnection = new ReactNativeWebSocketNodeConnection()
+    const provider = new EthereumProvider({
+      nodeConnection
+    })
+    expect(provider).toBeTruthy()
+  })
+
+  describe('chainChanged', (): void => {
     it('emits event on reconnection', async (done): Promise<void> => {
       const server1 = new WS('ws://localhost:1234')
       const server2 = new WS('ws://localhost:1235')
-      const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+      const provider = new EthereumProvider({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       server1.on('connection', (socket): void => {
         socket.on('message', (message): void => {
@@ -78,7 +94,9 @@ describe('EthereumProvider', (): void => {
     > => {
       const server1 = new WS('ws://localhost:1234')
       const server2 = new WS('ws://localhost:1235')
-      const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+      const provider = new EthereumProvider({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       server1.on('connection', (socket): void => {
         socket.on('message', (message): void => {
@@ -137,7 +155,9 @@ describe('EthereumProvider', (): void => {
     it('emits event on reconnection', async (done): Promise<void> => {
       const server1 = new WS('ws://localhost:1234')
       const server2 = new WS('ws://localhost:1235')
-      const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+      const provider = new EthereumProvider({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       server1.on('connection', (socket): void => {
         socket.on('message', (message): void => {
@@ -196,7 +216,9 @@ describe('EthereumProvider', (): void => {
     > => {
       const server1 = new WS('ws://localhost:1234')
       const server2 = new WS('ws://localhost:1235')
-      const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+      const provider = new EthereumProvider({
+        nodeConnection: 'ws://localhost:1234'
+      })
 
       server1.on('connection', (socket): void => {
         socket.on('message', (message): void => {
@@ -253,7 +275,9 @@ describe('EthereumProvider', (): void => {
 
   it('emits notification', async (done): Promise<void> => {
     const server = new WS('ws://localhost:1234')
-    const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+    const provider = new EthereumProvider({
+      nodeConnection: 'ws://localhost:1234'
+    })
 
     await server.connected
 
@@ -273,7 +297,9 @@ describe('EthereumProvider', (): void => {
 
   it('emits accountsChanged', (done): void => {
     new WS('ws://localhost:1234')
-    const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+    const provider = new EthereumProvider({
+      nodeConnection: 'ws://localhost:1234'
+    })
 
     provider.on('accountsChanged', (accounts): void => {
       expect(accounts).toEqual(['account1', 'account2'])
@@ -293,7 +319,9 @@ describe('EthereumProvider', (): void => {
     void
   > => {
     const server = new WS('ws://localhost:1234')
-    const provider = new EthereumProvider({ url: 'ws://localhost:1234' })
+    const provider = new EthereumProvider({
+      nodeConnection: 'ws://localhost:1234'
+    })
 
     server.on('connection', (socket): void => {
       socket.on('message', (message): void => {
@@ -316,5 +344,26 @@ describe('EthereumProvider', (): void => {
 
     const result = await provider.send(JsonRpcMethod.EthAccounts)
     expect(result).toEqual(['account1', 'account2'])
+  })
+
+  it('sends message with params', (done): void => {
+    const server = new WS('ws://localhost:1234')
+    const provider = new EthereumProvider({
+      nodeConnection: 'ws://localhost:1234'
+    })
+
+    server.on('connection', (socket): void => {
+      socket.on('message', (message): void => {
+        // Details: https://github.com/romgain/jest-websocket-mock/blob/master/src/websocket.ts#L47
+        const data = JSON.parse(message as any)
+        if (data.method !== 'eth_balance') {
+          return
+        }
+        expect(data.params[0]).toEqual('account address')
+        done()
+      })
+    })
+
+    provider.send('eth_balance', ['account address'])
   })
 })

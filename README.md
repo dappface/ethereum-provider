@@ -20,7 +20,7 @@ import { EthereumProvider } from '@dappface/ethereum-provider'
 import Web3 from 'web3.js' // optional
 
 const ethereum = new EthereumProvider({
-  url: 'wss://your-remote-node-url'
+  nodeConnection: 'wss://your-remote-node-url'
 })
 
 window.ethereum = ethereum
@@ -48,7 +48,6 @@ const web3 = new Web3(ethereum)
 ```typescript
 // TODO
 ```
-
 
 ### Create custom node connection
 
