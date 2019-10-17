@@ -13,7 +13,6 @@ const createMessage = (data: {
 ctx.onmessage = (e: MessageEvent): void => {
   const data = JSON.parse(e.data)
 
-  // tslint:disable-next-line:no-console
   console.log('Worker: Received message:', data)
 
   switch (data.method) {

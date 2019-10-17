@@ -1,9 +1,9 @@
 import { IConnection, ITestWallet } from '../type'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import Worker from './background.worker.ts'
 
 declare global {
-  // tslint:disable-next-line:interface-name
   interface Window {
     ethereum: {
       postMessage: (message: string) => void
