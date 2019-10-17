@@ -1,0 +1,22 @@
+name: Test
+
+on: push
+
+jobs:
+  jest:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v1
+      - name: Switch node version
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.16.3"
+      - name: Install dependencies
+        run: npm i
+      - name: Test
+        run: npm run test
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
