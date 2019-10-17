@@ -56,10 +56,7 @@ describe('JsonRpcManager', (): void => {
 
       await server.connected
 
-      return expect(
-        // @ts-ignore
-        jsonRpc.send(undefined, [])
-      ).rejects.toEqual(
+      return expect(jsonRpc.send(undefined as any, [])).rejects.toEqual(
         new Error('JsonRpcManager: Method is not a valid string.')
       )
     })
@@ -71,8 +68,7 @@ describe('JsonRpcManager', (): void => {
       await server.connected
 
       return expect(
-        // @ts-ignore
-        jsonRpc.send('servePinacolada')
+        jsonRpc.send('servePinacolada', undefined as any)
       ).rejects.toEqual(
         new Error('JsonRpcManager: Params is not a valid array.')
       )

@@ -1,5 +1,4 @@
 import { IConnection, ITestWallet } from '../type'
-// @ts-ignore
 import Worker from './background.worker.ts'
 
 declare global {
