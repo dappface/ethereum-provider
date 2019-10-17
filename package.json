@@ -43,6 +43,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "typecheck": "tsc",
+    "upgrade-interactive": "npx npm-check --update",
     "watch": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --watch"
   },
   "devDependencies": {
