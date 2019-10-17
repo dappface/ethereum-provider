@@ -1,4 +1,5 @@
-[![CircleCI][circleci-svg]][circleci-link]
+[![Build Status][build-status-svg]][build-status-link]
+[![Lint Status][lint-status-svg]][lint-status-link]
 [![codecov][codecov-svg]][codecov-link]
 
 <div align="center">
@@ -49,14 +50,15 @@ const web3 = new Web3(ethereum)
 // TODO
 ```
 
-
 ### Create custom node connection
 
 ```typescript
 // TODO
 ```
 
-[circleci-svg]: https://circleci.com/gh/dappface/ethereum-provider.svg?style=svg
-[circleci-link]: https://circleci.com/gh/dappface/ethereum-provider
+[build-status-svg]: https://github.com/dappface/jsonify-webpack-plugin/workflows/Build/badge.svg
+[build-status-link]: https://github.com/dappface/jsonify-webpack-plugin/actions?workflow=Build
+[lint-status-svg]: https://github.com/dappface/jsonify-webpack-plugin/workflows/Lint/badge.svg
+[lint-status-link]: https://github.com/dappface/jsonify-webpack-plugin/actions?workflow=Lint
 [codecov-svg]: https://codecov.io/gh/dappface/ethereum-provider/branch/master/graph/badge.svg
 [codecov-link]: https://codecov.io/gh/dappface/ethereum-provider
